@@ -49,9 +49,6 @@ tests/
 6. **Audio response is played back** to the caller.
 7. **Call logs** (duration, quality, timings) are saved to SQLite for monitoring.
 
-## 📷 Demo Screenshot  
-_(Add here a screenshot of the Flask UI showing audio upload and response)_  
-→ `static/screenshots/demo.png`
 
 ## ⚙️ Tech Stack  
 - Python 3.11  
