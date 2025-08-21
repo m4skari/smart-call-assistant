@@ -94,4 +94,3 @@ gunicorn app.app:app -w 2 -b 0.0.0.0:5000
 Final-year Electrical Engineering student @ **University of Tehran**
 Interested in **Quantitative Finance, Optimization, AI, and Markets**  
 
-📫 Contact: [LinkedIn](#) | [Email](#) | [GitHub](#)
