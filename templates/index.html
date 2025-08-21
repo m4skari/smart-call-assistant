@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم تماس هوشمند | Smart Call System</title>
+    
+    <!-- Bootstrap RTL CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-bg: #ecf0f1;
+        }
+        
+        body {
+            font-family: 'Vazir', 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin: 20px;
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card.total i { color: var(--secondary-color); }
+        .stat-card.positive i { color: var(--success-color); }
+        .stat-card.negative i { color: var(--danger-color); }
+        .stat-card.neutral i { color: var(--warning-color); }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .calls-table {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+        }
+        
+        .table-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+        
+        .table-responsive {
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .table {
+            margin: 0;
+        }
+        
+        .table th {
+            background: var(--light-bg);
+            border: none;
+            padding: 15px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .table td {
+            padding: 15px;
+            border: none;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .sentiment-badge {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .sentiment-positive {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .sentiment-negative {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .sentiment-neutral {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .intent-badge {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--light-bg);
+            color: var(--primary-color);
+        }
+        
+        .response-text {
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .transcript-text {
+            max-width: 250px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            color: #2c3e50;
+        }
+        
+        .processing-time {
+            font-size: 0.85rem;
+            color: #27ae60;
+            font-weight: 500;
+        }
+        
+        .upload-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, var(--success-color), #2ecc71);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+        }
+        
+        .audio-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .audio-controls .btn {
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .audio-controls .btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .audio-controls .btn-outline-primary:hover {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+        
+        .audio-controls .btn-outline-success:hover {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="main-container">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-phone-alt me-3"></i>سیستم تماس هوشمند</h1>
+                <p>مدیریت و تحلیل هوشمند تماس‌ها با استفاده از هوش مصنوعی</p>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <h4 class="mb-3"><i class="fas fa-upload me-2"></i>آپلود فایل صوتی جدید</h4>
+                <p class="text-muted mb-4">فایل صوتی خود را انتخاب کنید تا پردازش شود</p>
+                <button class="upload-btn" onclick="uploadAudio()">
+                    <i class="fas fa-microphone me-2"></i>انتخاب فایل صوتی
+                </button>
+                <input type="file" id="audioFile" accept="audio/*" style="display: none;" onchange="processAudio(this)">
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-cards">
+                <div class="stat-card total">
+                    <i class="fas fa-phone-volume"></i>
+                    <div class="stat-number">{{ calls|length }}</div>
+                    <div class="stat-label">کل تماس‌ها</div>
+                </div>
+                <div class="stat-card positive">
+                    <i class="fas fa-smile"></i>
+                    <div class="stat-number">{{ calls|selectattr('sentiment', 'equalto', 'positive')|list|length }}</div>
+                    <div class="stat-label">احساسات مثبت</div>
+                </div>
+                <div class="stat-card negative">
+                    <i class="fas fa-frown"></i>
+                    <div class="stat-number">{{ calls|selectattr('sentiment', 'equalto', 'negative')|list|length }}</div>
+                    <div class="stat-label">احساسات منفی</div>
+                </div>
+                <div class="stat-card neutral">
+                    <i class="fas fa-meh"></i>
+                    <div class="stat-number">{{ calls|selectattr('sentiment', 'equalto', 'neutral')|list|length }}</div>
+                    <div class="stat-label">احساسات خنثی</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-thumbs-up"></i>
+                    <div class="stat-number">
+                        {% set good = calls|selectattr('gpt_quality', 'equalto', 1)|list|length %}
+                        {% if calls|length > 0 %}
+                            {{ ((good / (calls|length)) * 100)|round(1) }}%
+                        {% else %}
+                            0%
+                        {% endif %}
+                    </div>
+                    <div class="stat-label">کیفیت پاسخ‌های GPT</div>
+                </div>
+            </div>
+
+            <!-- Calls Table -->
+            <div class="calls-table">
+                <div class="table-header">
+                    <h3><i class="fas fa-list me-2"></i>لیست تماس‌های پردازش شده</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-hashtag me-2"></i>شناسه</th>
+                                <th><i class="fas fa-fingerprint me-2"></i>شناسه یکتا</th>
+                                <th><i class="fas fa-microphone me-2"></i>متن استخراج شده</th>
+                                <th><i class="fas fa-heart me-2"></i>احساسات</th>
+                                <th><i class="fas fa-bullseye me-2"></i>نیت</th>
+                                <th><i class="fas fa-comment me-2"></i>پاسخ GPT</th>
+                                <th><i class="fas fa-volume-up me-2"></i>پاسخ صوتی</th>
+                                <th><i class="fas fa-thumbs-up me-2"></i>کیفیت</th>
+                                <th><i class="fas fa-stopwatch me-2"></i>زمان پردازش</th>
+                                <th><i class="fas fa-clock me-2"></i>تاریخ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if calls %}
+                                {% for call in calls %}
+                                <tr>
+                                    <td><strong>#{{ call.id }}</strong></td>
+                                    <td><code>{{ call.unique_id }}</code></td>
+                                    <td>
+                                        <div class="transcript-text" title="{{ call.transcript or 'متن استخراج نشده' }}">
+                                            {% if call.transcript %}
+                                                {{ call.transcript[:80] }}{% if call.transcript|length > 80 %}...{% endif %}
+                                            {% else %}
+                                                <span class="text-muted">متن استخراج نشده</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if call.sentiment == 'positive' %}
+                                            <span class="sentiment-badge sentiment-positive">
+                                                <i class="fas fa-smile me-1"></i>مثبت
+                                            </span>
+                                        {% elif call.sentiment == 'negative' %}
+                                            <span class="sentiment-badge sentiment-negative">
+                                                <i class="fas fa-frown me-1"></i>منفی
+                                            </span>
+                                        {% else %}
+                                            <span class="sentiment-badge sentiment-neutral">
+                                                <i class="fas fa-meh me-1"></i>خنثی
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="intent-badge">
+                                            {% if call.intent == 'pricing' %}
+                                                <i class="fas fa-dollar-sign me-1"></i>قیمت
+                                            {% elif call.intent == 'product_availability' %}
+                                                <i class="fas fa-box me-1"></i>موجودی
+                                            {% elif call.intent == 'delivery_status' %}
+                                                <i class="fas fa-truck me-1"></i>ارسال
+                                            {% elif call.intent == 'refund' %}
+                                                <i class="fas fa-undo me-1"></i>مرجوعی
+                                            {% elif call.intent == 'complaint' %}
+                                                <i class="fas fa-exclamation-triangle me-1"></i>شکایت
+                                            {% elif call.intent == 'purchase' %}
+                                                <i class="fas fa-shopping-cart me-1"></i>خرید
+                                            {% else %}
+                                                <i class="fas fa-question me-1"></i>نامشخص
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="response-text" title="{{ call.response }}">
+                                            {{ call.response[:80] }}{% if call.response|length > 80 %}...{% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if call.audio_response_path %}
+                                            <div class="audio-controls">
+                                                <button class="btn btn-sm btn-outline-primary me-1" onclick="playAudio('{{ call.audio_response_path }}')" title="پخش">
+                                                    <i class="fas fa-play"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-outline-success" onclick="downloadAudio('{{ call.unique_id }}')" title="دانلود">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                            </div>
+                                        {% else %}
+                                            <span class="text-muted">
+                                                <i class="fas fa-times me-1"></i>موجود نیست
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if call.gpt_quality == 1 %}
+                                            <span class="text-success"><i class="fas fa-check-circle me-1"></i>خوب</span>
+                                        {% elif call.gpt_quality == 0 %}
+                                            <span class="text-danger"><i class="fas fa-times-circle me-1"></i>ضعیف</span>
+                                        {% else %}
+                                            <span class="text-muted">نامشخص</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="processing-time">
+                                            {% if call.processing_time %}
+                                                <i class="fas fa-stopwatch me-1"></i>
+                                                {{ "%.2f"|format(call.processing_time) }}s
+                                            {% else %}
+                                                <span class="text-muted">نامشخص</span>
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>
+                                            {{ call.created_at or 'نامشخص' }}
+                                        </small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted py-4">
+                                        <i class="fas fa-inbox fa-3x mb-3"></i>
+                                        <p>هنوز هیچ تماسی پردازش نشده است</p>
+                                        <p>فایل صوتی خود را آپلود کنید تا شروع کنید</p>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>&copy; 2024 سیستم تماس هوشمند</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        function uploadAudio() {
+            document.getElementById('audioFile').click();
+        }
+        
+        function processAudio(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const formData = new FormData();
+                formData.append('audio', file);
+                
+                // نمایش loading
+                showLoading();
+                
+                // ارسال فایل به سرور
+                fetch('/process_audio', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    hideLoading();
+                    if (data.success) {
+                        showSuccess('فایل صوتی با موفقیت پردازش شد!');
+                        setTimeout(() => location.reload(), 2000);
+                    } else {
+                        showError('خطا در پردازش فایل صوتی: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    hideLoading();
+                    showError('خطا در ارتباط با سرور: ' + error.message);
+                });
+            }
+        }
+        
+        function showLoading() {
+            // نمایش loading indicator
+            const btn = document.querySelector('.upload-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>در حال پردازش...';
+            btn.disabled = true;
+        }
+        
+        function hideLoading() {
+            const btn = document.querySelector('.upload-btn');
+            btn.innerHTML = '<i class="fas fa-microphone me-2"></i>انتخاب فایل صوتی';
+            btn.disabled = false;
+        }
+        
+        function showSuccess(message) {
+            // نمایش پیام موفقیت
+            alert('✅ ' + message);
+        }
+        
+        function showError(message) {
+            // نمایش پیام خطا
+            alert('❌ ' + message);
+        }
+
+        function playAudio(audioPath) {
+            // پخش فایل صوتی در مرورگر
+            const audio = new Audio(audioPath);
+            audio.play().catch(error => {
+                console.error('خطا در پخش فایل صوتی:', error);
+                showError('خطا در پخش فایل صوتی: ' + error.message);
+            });
+        }
+
+        function downloadAudio(uniqueId) {
+            // دانلود فایل صوتی
+            const downloadUrl = `/download_audio/${uniqueId}`;
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `response_${uniqueId}.wav`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
