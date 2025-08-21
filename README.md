@@ -1,5 +1,7 @@
 # 📞 Smart Call Assistant – Intelligent Voice Response System  
 **By Mohammad Askari – @ University of Tehran**  
+<img width="1917" height="977" alt="image" src="https://github.com/user-attachments/assets/571dbc91-47a0-4c92-a7ff-1f9d638075bb" />
+
 
 ## 🚀 Overview  
 This project is a **complete intelligent voice assistant system** for phone call centers.  
@@ -82,6 +84,8 @@ gunicorn app.app:app -w 2 -b 0.0.0.0:5000
 - `gpt_quality` – subjective quality score
 - `intent`, `sentiment`, `response_text`
 - File paths for input/output audio
+
+<img width="1821" height="581" alt="image" src="https://github.com/user-attachments/assets/203a6b71-a5e1-4c65-b92a-7050ed98d229" />
 
 ## 💡 Highlights
 - Designed & implemented fully **solo**.
