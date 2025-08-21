@@ -1,5 +1,5 @@
 # 📞 Smart Call Assistant – Intelligent Voice Response System  
-**By Mohammad Askari – Final Year Electrical Engineering Student @ University of Tehran**  
+**By Mohammad Askari – @ University of Tehran**  
 
 ## 🚀 Overview  
 This project is a **complete intelligent voice assistant system** for phone call centers.  
@@ -91,8 +91,7 @@ gunicorn app.app:app -w 2 -b 0.0.0.0:5000
 
 ## 📎 About the Developer  
 👨‍🎓 **Mohammad Askari**  
-Final-year Electrical Engineering student @ **University of Tehran** (2018–2025)  
-Entering Master's in **Industrial Engineering (Quantitative Finance track)** at **Tarbiat Modares University**  
+Final-year Electrical Engineering student @ **University of Tehran**
 Interested in **Quantitative Finance, Optimization, AI, and Markets**  
 
 📫 Contact: [LinkedIn](#) | [Email](#) | [GitHub](#)
