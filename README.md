@@ -7,7 +7,7 @@ By Mohammad Askari
 This project is a **complete intelligent voice assistant system** for phone call centers.  
 It processes user speech, understands the intent, generates context-aware responses using a Large Language Model, and returns synthesized voice — all fully automated.
 
-> 💡 Built from scratch without external paid APIs, deployed & tested on real server under constraints.
+> 💡 Built from scratch without external paid APIs.
 
 ## 🎯 Core Features
 
